@@ -1,32 +1,24 @@
 package org.ghosttrio.controller;
 
+import org.ghosttrio.config.ModelView;
+import org.ghosttrio.config.MvcFactory;
+import org.ghosttrio.config.MyView;
 import org.ghosttrio.domain.Member;
 import org.ghosttrio.repository.MemberRepository;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.Map;
 
 public class ControllerSaveImpl implements Controller {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository = MvcFactory.getMemberRepository();
 
-    public ControllerSaveImpl(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws SecurityException, IOException, ServletException {
-        Long id = Long.valueOf(request.getParameter("id"));
-        String name = request.getParameter("name");
-
+    public String process(Map<String, Object> paramMap, Map<String, Object> model) {
+        Long id = (Long) paramMap.get("id");
+        String name = (String) paramMap.get("name");
         Member member = new Member(id, name);
         memberRepository.save(member);
-        request.setAttribute("member", member);
-        String viewPath = "/WEB-INF/views/save.jsp";
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
-        dispatcher.forward(request, response);
+        model.put("member", member);
+        return "save-result";
     }
 }

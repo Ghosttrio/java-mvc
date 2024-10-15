@@ -1,11 +1,9 @@
 package org.ghosttrio.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.ghosttrio.config.ModelView;
+
+import java.util.Map;
 
 public interface Controller {
-    void process(HttpServletRequest request, HttpServletResponse response)
-            throws SecurityException, IOException, ServletException;
+    String process(Map<String, Object> paramMap, Map<String, Object> model);
 }
