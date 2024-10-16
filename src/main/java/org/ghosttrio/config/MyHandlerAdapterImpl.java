@@ -1,12 +1,9 @@
 package org.ghosttrio.config;
 
-import org.ghosttrio.controller.Controller;
 import org.ghosttrio.controller.Controller2;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,11 +20,11 @@ public class MyHandlerAdapterImpl implements MyHandlerAdapter {
         ModelView mv = controller.process(paramMap);
         return mv;
     }
+
     private Map<String, Object> createParamMap(HttpServletRequest request) {
         Map<String, Object> paramMap = new HashMap<>();
         request.getParameterNames().asIterator()
-                .forEachRemaining(paramName -> paramMap.put(paramName,
-                        request.getParameter(paramName)));
+                .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
         return paramMap;
     }
 }

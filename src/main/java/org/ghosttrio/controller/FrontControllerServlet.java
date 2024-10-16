@@ -18,27 +18,27 @@ import java.util.Map;
 
 @WebServlet(name = "frontControllerServlet", urlPatterns = "/front-controller/*")
 public class FrontControllerServlet extends HttpServlet {
+
     private final Map<String, Object> handlerMappingMap = new HashMap<>();
     private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
+
     public FrontControllerServlet() {
         initHandlerMappingMap();
         initHandlerAdapters();
     }
+
     private void initHandlerMappingMap() {
-        handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new
-                ControllerFormImpl());
-        handlerMappingMap.put("/front-controller/v5/v3/members/save", new
-                ControllerSaveImpl());
-        handlerMappingMap.put("/front-controller/v5/v3/members", new
-                ControllerLoadImpl());
+        handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new ControllerFormImpl());
+        handlerMappingMap.put("/front-controller/v5/v3/members/save", new ControllerSaveImpl());
+        handlerMappingMap.put("/front-controller/v5/v3/members", new ControllerLoadImpl());
     }
+
     private void initHandlerAdapters() {
         handlerAdapters.add(new MyHandlerAdapterImpl());
     }
+
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse
-            response)
-            throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Object handler = getHandler(request);
         if (handler == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
